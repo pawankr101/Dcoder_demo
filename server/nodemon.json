@@ -1,0 +1,11 @@
+{
+	"verbose": true,
+	"watch": ["src/app/*", "src/config/*", "src/index.js", "src/cluster.js"],
+    "ignore": [
+    	"node_modules/*",
+    	".babelrc",
+    	".jshintrc",
+    	"src/assets/*"
+    ],
+    "exec": "babel-node"
+}
