@@ -1,7 +1,9 @@
 import { Router } from "express";
+import { UserController } from './controllers/userController';
 
 export class UserModule {
     constructor() {
+        this.userController = new UserController();
         this.moduleRoutes = Router({
             strict: true,
         });
@@ -10,8 +12,8 @@ export class UserModule {
     }
 
     initializeModule() {
-        this.moduleRoutes.post('/user/login', (req, res) => { res.send('login')});
-        this.moduleRoutes.post('/user/register', (req, res) => { res.send('register')});
+        this.moduleRoutes.post('/user/login', this.userController.login);
+        this.moduleRoutes.post('/user/register', this.userController.register);
         this.useMiddleware();
         this.exposeRoutes();
     }
