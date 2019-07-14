@@ -33,7 +33,34 @@ export class UtilityService {
  			return model.every(item => typeof(item) === type);
  		}
  		return false;
- 	}
+	}
+	 
+	getCookie(cookie_name) {
+		if (!this.isString(cookie_name)) { return ''; }
+		if (cookie_name.length && document.cookie.length) {
+			let c_start = document.cookie.indexOf(cookie_name + '=');
+			if (c_start > -1) {
+				c_start = c_start + cookie_name.length + 1;
+				let c_end = document.cookie.indexOf(';', c_start);
+				c_end = c_end === -1 ? document.cookie.length : c_end;
+				return document.cookie.substring(c_start, c_end);
+			}
+			return '';
+		}
+		return '';
+	}
+
+	getFromLocalStorage(key) {
+		const item = localStorage.getItem(key);
+		return JSON.parse(item);
+	}
+	saveToLocalStorage(key, value) {
+		const valueString = JSON.stringify(value);
+		localStorage.setItem(key, valueString);
+	}
+	deleteFromLocalStorage(key) {
+		localStorage.removeItem(key);
+	}
 
  	getValue(model, key, default_value) {
  		default_value = this.isDefined(default_value) ? default_value : null;

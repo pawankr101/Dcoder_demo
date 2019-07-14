@@ -38,6 +38,8 @@ export class ServerUtilityService {
 					'Content-Type': 'application/json'
 				};
 			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
+			let jwt = this.utility.getFromLocalStorage('jwt_token');
+			headers['Authorization']= `Bearer ${jwt}`;
 			fetch(url, {
 				method: 'GET',
 				headers: headers
@@ -66,6 +68,8 @@ export class ServerUtilityService {
 					'Content-Type': 'application/json'
 				};
 			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
+			let jwt = this.utility.getFromLocalStorage('jwt_token');
+			headers['Authorization']= `Bearer ${jwt}`;
 			fetch(url, {
 				method: 'POST',
 				headers: headers,
