@@ -13,6 +13,7 @@
     "@types/lodash": "^4.14.133",
     "express": "^4.17.0",
     "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "mongoose": "^5.5.14"
   },
