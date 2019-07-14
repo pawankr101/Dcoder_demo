@@ -1,6 +1,9 @@
+import  bcrypt from 'bcryptjs'
 export class UtilityService {
 
- 	localConst = {};
+	localConst = {
+		salt: "$2a$10$3E9adMNvGL6iux/UIBs9Ju"
+	};
  	extractValue(model, keyArr) {
  		return keyArr.reduce((pre, cur) => {
  			return (pre && this.isDefined(pre[cur])) ? pre[cur] : null;
@@ -72,7 +75,22 @@ export class UtilityService {
  			return this.isDefinedAndNotNull(model[key]) ? model[key] : default_value;
  		}
  		return default_value;
- 	}
+	}
+	 
+	encryptPassword(password) {
+		return new Promise((resolve, reject) => {
+			if(!this.isString(password)) {
+				reject({message: 'password must be string'});
+			}
+			bcrypt.hash(password, this.localConst.salt, (err, hash) => {
+				if(err) {
+					reject(err);
+				} else {
+					resolve(hash);
+				}
+			});
+		});
+	}
 
  	forLoop(model, callback) {
  		let callback_return;

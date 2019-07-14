@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import { sign, verify } from 'jsonwebtoken'
+import { UtilityService } from '../../../services/utility';
 export class UserService {
     token = {
         private: null,
@@ -7,12 +8,13 @@ export class UserService {
     };
 
     constructor() {
-        this.getTokens()
+        this.utility = new UtilityService();
+        this.getKeys()
     }
 
-    getTokens() {
+    getKeys() {
         this.token.private = readFileSync('src/assets/keys/private.key', 'utf8');
-        this.token.public = readFileSync('src/assets/keys/private.key', 'utf8');
+        this.token.public = readFileSync('src/assets/keys/public.key', 'utf8');
     }
 
     generateToken(credential) {
@@ -22,6 +24,18 @@ export class UserService {
                     reject(err);
                 } else {
                     resolve(token);
+                }
+            })
+        });
+    }
+
+    verifyToken(token) {
+        return new Promise((resolve, reject) => {
+            verify(token, this.token.public, { algorithm: 'RS256'}, (err, authData) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    resolve(authData);
                 }
             })
         });

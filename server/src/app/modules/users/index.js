@@ -14,6 +14,7 @@ export class UserModule {
     initializeModule() {
         this.moduleRoutes.post('/user/login', this.userController.login);
         this.moduleRoutes.post('/user/register', this.userController.register);
+        this.moduleRoutes.delete('/user/logout', this.userController.logout);
         this.useMiddleware();
         this.exposeRoutes();
     }

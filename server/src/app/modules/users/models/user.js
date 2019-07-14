@@ -5,6 +5,7 @@ export class UserModel {
         this.schema = null;
         this.generateSchema();
         return model('user', this.schema);
+        // return new Model();
     }
 
     generateSchema() {
@@ -12,11 +13,7 @@ export class UserModel {
             name: String,
             email: String,
             password: String,
-            mobile: String,
-            tokens: [{
-                c_token: String,
-                exp_date: Number
-            }]
+            mobile: String
         });
     }
 }

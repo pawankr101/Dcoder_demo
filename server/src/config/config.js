@@ -7,3 +7,7 @@ export const server_config = {
 	clientHostName: 'http://localhost',
 	clientHostingPort: 3030
 };
+
+export const public_apis = [
+	'/', '/user/login', '/user/register'
+]

@@ -33,11 +33,22 @@ class Login extends React.Component {
 	}
 
 	loginRequest() {
-		this.server.postRequest(api_url.login, this.login).then(res => {
-			console.log(res);
-			// this.props.history.push('/');
+		this.utility.encryptPassword(this.login.password).then(password => {
+			const payload = {
+				email: this.login.email,
+				password: password
+			};
+			this.server.postRequest(api_url.login, payload).then(res => {
+				console.log(res);
+				this.utility.saveToLocalStorage('jwt_token', this.utility.getValue(res, 'token'));
+				delete res.token;
+				this.utility.saveToLocalStorage('logged_in_user', res);
+				// this.props.history.push('/');
+			}).catch(err => {
+				console.log(err.message);
+			});
 		}).catch(err => {
-			console.log(err.message);
+			console.log(err);
 		});
 	}
 

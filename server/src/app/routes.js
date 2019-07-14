@@ -9,7 +9,7 @@ export class Routes {
 
     registerAllModuleRoutes(routes) {
         routes.push(new UserModule());
-        // added other other module routes here as well as user module.
+        // add other other module routes here as well as user module.
     }
 
     registerRoutes() {
