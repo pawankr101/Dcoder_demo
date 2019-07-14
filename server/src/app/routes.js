@@ -1,4 +1,5 @@
-import { Router } from "express";
+import { Router, response } from "express";
+import { UserModule } from './modules/users/index'
 
 export class Routes {
     constructor() {
@@ -6,15 +7,20 @@ export class Routes {
         this.registerRoutes();
     }
 
+    registerAllModuleRoutes(routes) {
+        routes.push(new UserModule().moduleRoutes);
+    }
+
     registerRoutes() {
         const routes = [];
         routes.push(this.baseRoute());
+        this.registerAllModuleRoutes(routes);
         this.router.use(routes);
     }
 
     baseRoute() {
         const router = Router({
-            strict: true,
+            strict: true
         });
         router.all('/', (request, response) => {
             const res = 'Welcome to the Portal';

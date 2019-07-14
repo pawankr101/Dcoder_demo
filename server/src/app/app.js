@@ -16,27 +16,20 @@ export class App {
 		this.app.use(commonMiddleware.allCommonMiddlewares());
 	}
 
-	getDbConnection(callback) {
+	registerRoutes() {
+		const routes = new Routes();
 		const mongo = new MongoDB();
 		mongo.getDBConnection().then(res => {
 			console.log(res.message);
-			if(callback) { callback(); }
+			this.app.use(routes.router);
 		}).catch(err => {
 			console.log(err.message);
-		});
-	}
-
-	registerRoutes() {
-		const routes = new Routes();
-		this.getDbConnection(() => {
-			this.app.use(routes.router);
 		});
 	}
 
 	initializeApp() {
 		this.useMiddleware();
 		this.registerRoutes();
-		this.getDbConnection();
 	}
 
 	start(process_id) {

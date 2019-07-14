@@ -14,14 +14,13 @@ export class MongoDB {
                         reject({message: `Got error while connecting Database.${EOL}Got error while closing Database connection`});
                     });
                 });
-            } else {
-                connection.on('error', (err) => {
-                    reject({message: 'Got DB connection error'});
-                });
-                connection.once('open', (res) => {
-                    resolve({message: 'Database connected Successfully'});
-                });
-            }
+            } 
+            connection.on('error', (err) => {
+                reject({message: 'Got DB connection error'});
+            });
+            connection.once('open', (res) => {
+                resolve({message: 'Database connected Successfully'});
+            });
         });
     }
 
