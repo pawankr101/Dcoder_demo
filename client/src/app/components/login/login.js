@@ -16,8 +16,7 @@ class Login extends React.Component {
 	};
 
 	patterns = {
-		email: /^\S+@\S+\.[\S]{2,4}$/,
-		password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-_.])[A-Za-z\d#?!@$%^&*-_.]{8,}$/
+		email: /^\S+@\S+\.[\S]{2,4}$/
 	}
 
 	validationMessage = {
@@ -85,10 +84,6 @@ class Login extends React.Component {
 			this.validationMessage.email = 'invalid email';
 			return true;
 		}
-		if (field === 'password' && !this.patterns.password.test(this.login.password)) {
-			this.validationMessage.password = 'password must have small alphabet, capital alphabet digit and special char and minimum length should be 8';
-			return true;
-		}
 		this.validationMessage[field] = '';
 		return false;
 	}
@@ -133,7 +128,7 @@ class Login extends React.Component {
 						</div>
 						<div className="form-group row">
 							<div className="offset-10 col-1 ">
-								<button type="button" className="btn btn-success" onClick={this.onLogin}>Submit</button>
+								<button type="button" className="btn btn-success" onClick={this.onLogin}>Login</button>
 								{/* <Link className="btn btn-danger m-1" to='/'>Cancel</Link> */}
 							</div>
 						</div>
