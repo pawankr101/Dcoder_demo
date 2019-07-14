@@ -33,7 +33,7 @@ export class UtilityService {
             return model.every(item => typeof(item) === type);
         }
         return false;
-   }
+    }
 
     getValue(model, key, default_value) {
         default_value = this.isDefined(default_value) ? default_value : null;
