@@ -18,4 +18,17 @@ export class UserQuery {
         });
     }
 
+    addUser(user) {
+        return new Promise((resolve, reject) => {
+            let newUser = new this.user(user);
+            newUser.save((err, res) => {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(res);
+                }
+            });
+        });
+    }
+
 }
