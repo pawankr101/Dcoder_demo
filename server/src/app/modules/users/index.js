@@ -6,6 +6,7 @@ export class UserModule {
             strict: true,
         });
         this.initializeModule();
+        return this.moduleRoutes;
     }
 
     initializeModule() {
