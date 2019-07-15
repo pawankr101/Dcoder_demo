@@ -1,9 +1,11 @@
 import { UtilityService } from "./utility";
+import { createBrowserHistory } from 'history'
 
 export class ServerUtilityService {
 	localConst = {};
 	constructor() {
 		this.utility = new UtilityService();
+		this.history = createBrowserHistory({forceRefresh:true})
 	}
 
 	buildParam(params) {
@@ -44,7 +46,11 @@ export class ServerUtilityService {
 				method: 'GET',
 				headers: headers
 			}).then(result => {
-				return result.json();
+				if(this.history.location.pathname !== '/login' && result.status === 401) {
+					this.history.push('/login')
+				} else {
+					return result.json();
+				}
 			}).then(resultData => {
 				resolve(resultData);
 			}).catch(error => {
@@ -75,6 +81,13 @@ export class ServerUtilityService {
 				headers: headers,
 				body: JSON.stringify(payload)
 			}).then(result => {
+				console.log(result);
+				console.log(this.history);
+				if(this.history.location.pathname !== '/login' && result.status === 401) {
+					this.history.push('/login')
+				} else {
+					return result.json();
+				}
 				return result.json();
 			}).then(resultData => {
 				resolve(resultData);

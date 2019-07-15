@@ -45,10 +45,10 @@ export class CommonMiddleware {
                         request.authData = authData;
                         next();
                     }).catch(err => {
-                        response.json(err);
+                        response.status(401).json(err);
                     });
                 } else {
-                    response.json({message: 'Unauthorized Access'});
+                    response.status(401).json({message: 'Unauthorized Access'});
                 }
             }
         };
