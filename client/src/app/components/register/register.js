@@ -56,10 +56,6 @@ class Register extends React.Component {
 						errorMessage: this.utility.getValue(res, 'data.message')
 					});
 				}
-				// this.utility.saveToLocalStorage('jwt_token', this.utility.getValue(res, 'token'));
-				// delete res.token;
-				// this.utility.saveToLocalStorage('logged_in_user', res);
-				// this.props.history.push('/');
 			}).catch(err => {
 				console.log(err.message);
 			});
