@@ -47,7 +47,7 @@ export class ServerUtilityService {
 				method: 'GET',
 				headers: headers
 			}).then(result => {
-				status = (`result.status`[0] === '2') ? 'success' : 'error'
+				status = (`${result.status}`[0] === '2') ? 'success' : 'error'
 				if(this.history.location.pathname !== '/login' && result.status === 401) {
 					this.history.push('/login')
 				} else {
@@ -84,7 +84,7 @@ export class ServerUtilityService {
 				headers: headers,
 				body: JSON.stringify(payload)
 			}).then(result => {
-				status = (`result.status`[0] === '2') ? 'success' : 'error'
+				status = (`${result.status}`[0] === '2') ? 'success' : 'error'
 				if(this.history.location.pathname !== '/login' && result.status === 401) {
 					this.history.push('/login')
 				} else {

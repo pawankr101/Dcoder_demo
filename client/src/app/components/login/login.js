@@ -31,6 +31,7 @@ class Login extends React.Component {
 		this.server = new ServerUtilityService();
 		this.onLogin = this.onLogin.bind(this);
 		this.utility.deleteFromLocalStorage('jwt_token');
+		this.utility.deleteFromLocalStorage('logged_in_user');
 	}
 
 	loginRequest() {
@@ -44,7 +45,7 @@ class Login extends React.Component {
 					this.utility.saveToLocalStorage('jwt_token', this.utility.getValue(res, 'data.token'));
 					delete res.data.token;
 					this.utility.saveToLocalStorage('logged_in_user', res.data);
-					// this.props.history.push('/');
+					this.props.history.push('/threads');
 				} else {
 					this.setState({
 						errorMessage: this.utility.getValue(res, 'data.message')

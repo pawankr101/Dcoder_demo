@@ -48,9 +48,8 @@ class Register extends React.Component {
                 mobile: this.register.mobile
 			};
 			this.server.postRequest(api_url.register, payload).then(res => {
-				console.log(res);
 				if(res.status === 'success') {
-
+					this.props.history.push('/');
 				} else {
 					this.setState({
 						errorMessage: this.utility.getValue(res, 'data.message')
