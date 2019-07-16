@@ -42,17 +42,19 @@ export class ServerUtilityService {
 			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
 			let jwt = this.utility.getFromLocalStorage('jwt_token');
 			headers['Authorization']= `Bearer ${jwt}`;
+			let status = null;
 			fetch(url, {
 				method: 'GET',
 				headers: headers
 			}).then(result => {
+				status = (`result.status`[0] === '2') ? 'success' : 'error'
 				if(this.history.location.pathname !== '/login' && result.status === 401) {
 					this.history.push('/login')
 				} else {
 					return result.json();
 				}
 			}).then(resultData => {
-				resolve(resultData);
+				resolve({status: status, data: resultData});
 			}).catch(error => {
 				reject(error);
 			});
@@ -76,21 +78,20 @@ export class ServerUtilityService {
 			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
 			let jwt = this.utility.getFromLocalStorage('jwt_token');
 			headers['Authorization']= `Bearer ${jwt}`;
+			let status = null;
 			fetch(url, {
 				method: 'POST',
 				headers: headers,
 				body: JSON.stringify(payload)
 			}).then(result => {
-				console.log(result);
-				console.log(this.history);
+				status = (`result.status`[0] === '2') ? 'success' : 'error'
 				if(this.history.location.pathname !== '/login' && result.status === 401) {
 					this.history.push('/login')
 				} else {
 					return result.json();
 				}
-				return result.json();
 			}).then(resultData => {
-				resolve(resultData);
+				resolve({status: status, data: resultData});
 			}).catch(error => {
 				reject(error);
 			});

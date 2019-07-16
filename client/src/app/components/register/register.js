@@ -36,7 +36,7 @@ class Register extends React.Component {
 		super(props)
 		this.utility = new UtilityService();
 		this.server = new ServerUtilityService();
-		this.onRegister = this.onRegister.bind(this)
+		this.onRegister = this.onRegister.bind(this);
 	}
 
 	registerRequest() {
@@ -49,6 +49,13 @@ class Register extends React.Component {
 			};
 			this.server.postRequest(api_url.register, payload).then(res => {
 				console.log(res);
+				if(res.status === 'success') {
+
+				} else {
+					this.setState({
+						errorMessage: this.utility.getValue(res, 'data.message')
+					});
+				}
 				// this.utility.saveToLocalStorage('jwt_token', this.utility.getValue(res, 'token'));
 				// delete res.token;
 				// this.utility.saveToLocalStorage('logged_in_user', res);

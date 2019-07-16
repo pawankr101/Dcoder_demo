@@ -40,14 +40,14 @@ class Login extends React.Component {
 				password: password
 			};
 			this.server.postRequest(api_url.login, payload).then(res => {
-				if(this.utility.getValue(res, 'token')) {
-					this.utility.saveToLocalStorage('jwt_token', res.token);
-					delete res.token;
-					this.utility.saveToLocalStorage('logged_in_user', res);
+				if(res.status === 'success') {
+					this.utility.saveToLocalStorage('jwt_token', this.utility.getValue(res, 'data.token'));
+					delete res.data.token;
+					this.utility.saveToLocalStorage('logged_in_user', res.data);
 					// this.props.history.push('/');
 				} else {
 					this.setState({
-						errorMessage: this.utility.getValue(res, 'message')
+						errorMessage: this.utility.getValue(res, 'data.message')
 					});
 				}
 			}).catch(err => {
