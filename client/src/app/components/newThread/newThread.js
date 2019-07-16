@@ -43,7 +43,7 @@ class NewThread extends React.Component {
                 payload.tags.push(val);
             }
         });
-        this.server.postRequest(api_url.login, payload).then(res => {
+        this.server.postRequest(api_url.newThread, payload).then(res => {
             if(res.status === 'success') {
                 this.props.history.push('/threads');
             } else {
