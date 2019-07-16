@@ -36,10 +36,12 @@ function ThreadsHome (props) {
 					</div>
 				</div>
 			</div>
-			<Route exact path="/threads" render={(props) => <h1>threads</h1>}/>
-			<Route exact strict path="/threads/" render={() => <Redirect to="/threads"/>}/>
-			<Route exact path="/threads/new" render={(props) => <h1>new threads</h1>}/>
-			<Route exact strict path="/threads/new/" render={() => <Redirect to="/threads/new"/>}/>
+			<div className="w-100 m-0 p-0" style={{height: 'calc(100vh - 70px)'}}> 
+				<Route exact path="/threads" render={(props) => <h1>threads</h1>}/>
+				<Route exact strict path="/threads/" render={() => <Redirect to="/threads"/>}/>
+				<Route exact path="/threads/new" render={(props) => <h1>new threads</h1>}/>
+				<Route exact strict path="/threads/new/" render={() => <Redirect to="/threads/new"/>}/>
+			</div>
 		</React.Fragment>
 	);
 }
