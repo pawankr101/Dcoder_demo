@@ -3,7 +3,8 @@ import './register.css';
 import { UtilityService } from '../../services/utility';
 import { ServerUtilityService } from '../../services/serverUtility';
 import { ErrorMsgUnderInputBox } from '../../stateless/errorComponents/errorComponents'
-import { api_url } from '../../../config/config'
+import { api_url } from '../../../config/config';
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
 	state = {
@@ -201,7 +202,9 @@ class Register extends React.Component {
 									</div>
 								</div>
 								
-								<div className="row" style={{height:"20px"}}></div>
+								<div className="text-center" style={{height:"20px"}}>
+									If Already Registered.&nbsp;&nbsp;<Link to='/login' className="link">Login here</Link>
+								</div>
 								<div className="row justify-content-center text-center text-danger" style={{height:"40px"}}>
 									{this.state.errorMessage}
 								</div>

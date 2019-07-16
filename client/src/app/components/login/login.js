@@ -2,8 +2,9 @@ import React from 'react';
 import './login.css';
 import { UtilityService } from '../../services/utility';
 import { ServerUtilityService } from '../../services/serverUtility';
-import { ErrorMsgUnderInputBox } from '../../stateless/errorComponents/errorComponents'
-import { api_url } from '../../../config/config'
+import { ErrorMsgUnderInputBox } from '../../stateless/errorComponents/errorComponents';
+import { api_url } from '../../../config/config';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
 	state = {
@@ -147,7 +148,9 @@ class Login extends React.Component {
 									</div>
 								</div>
 
-								<div className="row" style={{height:"20px"}}></div>
+								<div className="text-center" style={{height:"20px"}}>
+									Not Registered?&nbsp;&nbsp;<Link to='/register' className="link">Register here</Link>
+								</div>
 								<div className="row justify-content-center text-center text-danger" style={{height:"40px"}}>
 									{this.state.errorMessage}
 								</div>

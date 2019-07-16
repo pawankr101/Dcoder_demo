@@ -3,3 +3,10 @@
 	margin: 0;
 	height: 100vh !important;
 }
+.link {
+    color: #212529;
+}
+.link:hover {
+    color: blue;
+    text-decoration: none
+}
