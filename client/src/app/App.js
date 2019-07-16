@@ -1,13 +1,41 @@
 import React from 'react';
 import './App.css';
+import logo from '../assets/images/logo.svg';
 import { Route, Redirect } from 'react-router-dom';
 import Login from './components/login/login'
 import Register from './components/register/register';
 import { UtilityService } from './services/utility';
 
 function ThreadsHome (props) {
+	let utility = new UtilityService();
+	let logged_user = utility.getFromLocalStorage('logged_in_user');
+	let logout = () => {
+		utility.deleteFromLocalStorage('jwt_token');
+		utility.deleteFromLocalStorage('logged_in_user');
+		props.history.push('/login');
+	};
 	return (
 		<React.Fragment>
+			<div className="row w-100 m-0 bg-dark " style={{height:"70px"}}>
+				<div className="col-3">
+					<div className="row h-100 text-white">
+						<div className="offset-1 col-2 p-0 align-self-center">
+							<img src={logo} alt="logo" width="40" height="40"/>
+						</div>
+						<div className="col-9 p-0 align-self-center">
+							<h1 className="m-0">DCODER</h1>
+						</div>
+					</div>
+				</div>
+				<div className="offset-5 col-4">
+					<div className="row h-100">
+						<div className=" offset-4 col-7 align-self-center text-white">
+							<h5 className="m-0 d-inline-block text-capitalize" style={{'paddingTop':'3px'}}>{logged_user.name}</h5>
+							<button type="button" className="btn btn-sm btn-danger ml-3" onClick={logout}>Logout</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<Route exact path="/threads" render={(props) => <h1>threads</h1>}/>
 			<Route exact strict path="/threads/" render={() => <Redirect to="/threads"/>}/>
 			<Route exact path="/threads/new" render={(props) => <h1>new threads</h1>}/>
