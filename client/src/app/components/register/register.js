@@ -7,7 +7,8 @@ import { api_url } from '../../../config/config'
 
 class Register extends React.Component {
 	state = {
-		error: false
+		error: false,
+		errorMessage: null
 	};
 
 	register = {
@@ -63,7 +64,8 @@ class Register extends React.Component {
 	hasError() {
 		let error = false;
 		this.setState({
-			error: false
+			error: false,
+			errorMessage: null
 		});
 		this.utility.forLoop(this.register, (value, key) => {
 			this.validateField(key);
@@ -122,77 +124,88 @@ class Register extends React.Component {
 
 	render() {
 		return (
-			<div className="Login">
-				<div className="offset-2 col-10">Register</div>
-				<div className="login-form">
-					<form>
-						<div className="form-element">
-							<div className="form-group row form-input-box">
-								<div className="offset-1 col-10">
-									<label htmlFor="name" className="row">Name:</label>
-									<div className="row">
-										<input type="text" className="form-control" id="name" placeholder="Name"
-											onChange={this.handleInputChange.bind(this, 'name')} />
+			<div className="Register">
+				<div>
+					<div className="row">
+						<div className="col-7 align-self-center">
+							<h1 className="text-center text-white" style={{'fontSize': '55px','fontWeight': 'bold'}}>DCODER</h1>
+						</div>
+						<div className="col-4">
+							<form className="register-form">
+								<div className="form-element">
+									<div className="form-group row form-input-box">
+										<div className="offset-1 col-10">
+											<label htmlFor="name" className="row">Name:</label>
+											<div className="row">
+												<input type="text" className="form-control" id="name" placeholder="Name"
+													onChange={this.handleInputChange.bind(this, 'name')} />
+											</div>
+											<ErrorMsgUnderInputBox errorText={this.validationMessage.name} />
+										</div>
 									</div>
-									<ErrorMsgUnderInputBox errorText={this.validationMessage.name} />
 								</div>
-							</div>
-						</div>
-						<div className="form-element">
-							<div className="form-group row form-input-box">
-								<div className="offset-1 col-10">
-									<label htmlFor="email" className="row">Email:</label>
-									<div className="row">
-										<input type="email" className="form-control" id="email" placeholder="Email"
-											onChange={this.handleInputChange.bind(this, 'email')} />
+								<div className="form-element">
+									<div className="form-group row form-input-box">
+										<div className="offset-1 col-10">
+											<label htmlFor="email" className="row">Email:</label>
+											<div className="row">
+												<input type="email" className="form-control" id="email" placeholder="Email"
+													onChange={this.handleInputChange.bind(this, 'email')} />
+											</div>
+											<ErrorMsgUnderInputBox errorText={this.validationMessage.email} />
+										</div>
 									</div>
-									<ErrorMsgUnderInputBox errorText={this.validationMessage.email} />
 								</div>
-							</div>
-						</div>
-						<div className="form-element">
-							<div className="form-group row form-input-box">
-								<div className="offset-1 col-10">
-									<label htmlFor="password" className="row">Password:</label>
-									<div className="row">
-										<input type="password" className="form-control" id="password" placeholder="Password"
-											onChange={this.handleInputChange.bind(this, 'password')} />
+								<div className="form-element">
+									<div className="form-group row form-input-box">
+										<div className="offset-1 col-10">
+											<label htmlFor="password" className="row">Password:</label>
+											<div className="row">
+												<input type="password" className="form-control" id="password" placeholder="Password"
+													onChange={this.handleInputChange.bind(this, 'password')} />
+											</div>
+											<ErrorMsgUnderInputBox errorText={this.validationMessage.password} />
+										</div>
 									</div>
-									<ErrorMsgUnderInputBox errorText={this.validationMessage.password} />
 								</div>
-							</div>
-						</div>
-						<div className="form-element">
-							<div className="form-group row form-input-box">
-								<div className="offset-1 col-10">
-									<label htmlFor="re_password" className="row">Re Enter Password:</label>
-									<div className="row">
-										<input type="password" className="form-control" id="re_password" placeholder="Re Enter Password"
-											onChange={this.handleInputChange.bind(this, 're_password')} />
+								<div className="form-element">
+									<div className="form-group row form-input-box">
+										<div className="offset-1 col-10">
+											<label htmlFor="re_password" className="row">Re Enter Password:</label>
+											<div className="row">
+												<input type="password" className="form-control" id="re_password" placeholder="Re Enter Password"
+													onChange={this.handleInputChange.bind(this, 're_password')} />
+											</div>
+											<ErrorMsgUnderInputBox errorText={this.validationMessage.re_password} />
+										</div>
 									</div>
-									<ErrorMsgUnderInputBox errorText={this.validationMessage.re_password} />
 								</div>
-							</div>
-						</div>
-						<div className="form-element">
-							<div className="form-group row form-input-box">
-								<div className="offset-1 col-10">
-									<label htmlFor="mobile" className="row">Mobile:</label>
-									<div className="row">
-										<input type="text" className="form-control" id="mobile" placeholder="Mobile"
-											onChange={this.handleInputChange.bind(this, 'mobile')} />
+								<div className="form-element">
+									<div className="form-group row form-input-box">
+										<div className="offset-1 col-10">
+											<label htmlFor="mobile" className="row">Mobile:</label>
+											<div className="row">
+												<input type="text" className="form-control" id="mobile" placeholder="Mobile"
+													onChange={this.handleInputChange.bind(this, 'mobile')} />
+											</div>
+											<ErrorMsgUnderInputBox errorText={this.validationMessage.mobile} />
+										</div>
 									</div>
-									<ErrorMsgUnderInputBox errorText={this.validationMessage.mobile} />
 								</div>
-							</div>
+								<div className="form-group row">
+									<div className="offset-7 col-4 ">
+										<button type="button" className="btn btn-success" onClick={this.onRegister}>Register</button>
+										{/* <Link className="btn btn-danger m-1" to='/'>Cancel</Link> */}
+									</div>
+								</div>
+								
+								<div className="row" style={{height:"20px"}}></div>
+								<div className="row justify-content-center text-center text-danger" style={{height:"40px"}}>
+									{this.state.errorMessage}
+								</div>
+							</form>
 						</div>
-						<div className="form-group row">
-							<div className="offset-10 col-1 ">
-								<button type="button" className="btn btn-success" onClick={this.onRegister}>Register</button>
-								{/* <Link className="btn btn-danger m-1" to='/'>Cancel</Link> */}
-							</div>
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		);
