@@ -4,8 +4,11 @@ export class UserModel {
     constructor() {
         this.schema = null;
         this.generateSchema();
-        return model('user', this.schema);
-        // return new Model();
+        try {
+            return model('user');
+        } catch(err) {
+            return model('user', this.schema);
+        }
     }
 
     generateSchema() {

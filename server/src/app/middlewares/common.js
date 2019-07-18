@@ -24,18 +24,19 @@ export class CommonMiddleware {
 
     setHeaders() {
         return (request, response, next) => {
-            response.header("Access-Control-Allow-Origin", "*");
-            // response.header("Access-Control-Allow-Origin", `${config.clientHostName}:${config.clientHostingPort}`); //client address
-            response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, X-Custom-Header, Accept, Authorization");
-            response.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, XMODIFY");
-            response.header("Access-Control-Allow-Credentials", true);
+            response.header('Access-Control-Allow-Origin', '*');
+            // response.header('Access-Control-Allow-Origin', `${config.clientHostName}:${config.clientHostingPort}`); //client address
+            response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, X-Custom-Header, Accept, Authorization');
+            response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+            response.header('Access-Control-Allow-Credentials', true);
+            response.header('Access-Control-Max-Age', '86400');
             next();
         };
     }
 
     verifyJwtToken() {
         return (request, response, next) => {
-            if(public_apis.includes(request.path)) {
+            if(request.method == 'OPTIONS' || public_apis.includes(request.path)) {
                 next();
             } else {
                 const auth = this.utility.getValue(request, 'headers.authorization', ''),

@@ -1,5 +1,6 @@
 import { Router, response } from "express";
-import { UserModule } from './modules/users/index'
+import { UserModule } from './modules/users/index';
+import { ThreadModule } from './modules/threads/index';
 
 export class Routes {
     constructor() {
@@ -9,6 +10,7 @@ export class Routes {
 
     registerAllModuleRoutes(routes) {
         routes.push(new UserModule());
+        routes.push(new ThreadModule());
         // add other other module routes here as well as user module.
     }
 

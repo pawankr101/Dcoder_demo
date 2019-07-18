@@ -19,10 +19,10 @@ export class ServerUtilityService {
 	}
 
 	buildHeader(commonHeader, headers) {
-		commonHeader = commonHeader || {};
+		commonHeader = commonHeader || new Headers();
 		this.utility.forLoop(headers, (header, key) => {
 			if(this.utility.isString(header)) {
-				commonHeader[key] = header
+				commonHeader.append(key, header);
 			}
 		});
 		return commonHeader;
@@ -35,13 +35,13 @@ export class ServerUtilityService {
 					message: "'apiEndUrl' must be string"
 				});
 			}
-			let url = apiEndUrl + this.buildParam(this.utility.getValue(options, 'params')),
-				headers = {
-					'Content-Type': 'application/json'
-				};
+			let url = apiEndUrl + this.buildParam(this.utility.getValue(options, 'params'));
+			let headers = new Headers();
+			headers.append('Content-Type', 'application/json');
+			headers.append('Accept', 'application/json');
 			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
 			let jwt = this.utility.getFromLocalStorage('jwt_token');
-			headers['Authorization']= `Bearer ${jwt}`;
+			headers.append('Authorization', `Bearer ${jwt}`);
 			let status = null;
 			fetch(url, {
 				method: 'GET',
@@ -71,13 +71,13 @@ export class ServerUtilityService {
 			if(!this.utility.isDefinedAndNotNull(payload)) {
 				payload = {};
 			}
-			let url = apiEndUrl + this.buildParam(this.utility.getValue(options, 'params')),
-				headers = {
-					'Content-Type': 'application/json'
-				};
+			let url = apiEndUrl + this.buildParam(this.utility.getValue(options, 'params'))
+			let headers = new Headers();
+			headers.append('Content-Type', 'application/json');
+			headers.append('Accept', 'application/json');
 			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
 			let jwt = this.utility.getFromLocalStorage('jwt_token');
-			headers['Authorization']= `Bearer ${jwt}`;
+			headers.append('Authorization', `Bearer ${jwt}`);
 			let status = null;
 			fetch(url, {
 				method: 'POST',

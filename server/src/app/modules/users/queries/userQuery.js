@@ -8,11 +8,23 @@ export class UserQuery {
     getUserByEmail(email) {
         return new Promise((resolve, reject) => {
             if(!email) { reject({ message: 'email is mandatory' }) }
-            this.user.find({email: email}).exec((err, res) => {
+            this.user.find({email: email},{_v:0}).exec((err, res) => {
                 if(err) {
                     reject(err)
                 } else {
                     resolve(res[0]);
+                }
+            });
+        });
+    }
+
+    getUsers() {
+        return new Promise((resolve, reject) => {
+            this.user.find({}, {password: 0, _v: 0}).exec((err, res) => {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(res);
                 }
             });
         });
@@ -30,5 +42,4 @@ export class UserQuery {
             });
         });
     }
-
 }
