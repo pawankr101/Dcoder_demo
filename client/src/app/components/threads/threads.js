@@ -2,6 +2,8 @@ import React from 'react';
 import './threads.css';
 import { UtilityService } from '../../services/utility';
 import { ServerUtilityService } from '../../services/serverUtility';
+import { api_url } from '../../../config/config';
+import { Link } from 'react-router-dom';
 
 class Threads extends React.Component {
     state = {
@@ -11,7 +13,8 @@ class Threads extends React.Component {
     constructor(props) {
 		super(props)
 		this.utility = new UtilityService();
-		this.server = new ServerUtilityService();
+        this.server = new ServerUtilityService();
+        this.finalSearchResult = this.finalSearchResult.bind(this);
     }
 
     searchFilter(list, inputText) {
@@ -19,7 +22,7 @@ class Threads extends React.Component {
         if (!inputText.length) { return list; }
         inputText = inputText.toLowerCase();
         const arr = list.filter(el => {
-          return el.name.toLowerCase().includes(inputText);
+          return el.title.toLowerCase().includes(inputText);
         });
         return arr.length > 0 ? arr : [{err: 'No matched Thread'}];
     }
@@ -30,9 +33,14 @@ class Threads extends React.Component {
         }
         return tags.map((el, index) => {
             return (
-                <div key={index} className="m-2 p-2 bg-secondary d-inline-block">{el}</div>
+                <div key={index} className="m-2 p-2 d-inline-block" style={{backgroundColor: '#cecece', borderRadius: '10px'}}>{el}</div>
             );
         });
+    }
+
+    convertDateToString(date) {
+        date = new Date(date);
+        return `${date.toDateString()} ${date.toTimeString()}`;
     }
     
     searchResults(arr) {
@@ -50,31 +58,33 @@ class Threads extends React.Component {
         }
         return arr.map((el, index) => {
             return (
-                <div key={index} className="card result-card">
+                <div key={index} className="card result-card mb-3">
                     <div className="card-body">
                         <div className="row">
-                            <div className="col-2">Title: </div>
+                            <div className="col-2 font-weight-bold">Title: </div>
                             <div className="col-10">{el.title}</div>
                         </div>
                         <div className="row">
-                            <div className="col-2">Description: </div>
+                            <div className="col-2 font-weight-bold">Description: </div>
                             <div className="col-10">{el.description}</div>
                         </div>
                         <div className="row">
                             <div className="col-7">
-                                <div className="col-2">Tags: </div>
-                                <div className="col-10">
-                                    {this.createTagsChips(el.tags)}
+                                <div className="row">
+                                    <div className="col-3 font-weight-bold">Tags: </div>
+                                    <div className="col-8">
+                                        {this.createTagsChips(el.tags)}
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-5">
                                 <div className="row">
-                                    <div className="col-2">Created by:</div>
-                                    <div className="col-10">{el.creator_detail.name}</div>
+                                    <div className="col-4 font-weight-bold">Created by:</div>
+                                    <div className="col-8">{el.creator_details.name}</div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-2">Created at:</div>
-                                    <div className="col-10">{el.created_at}</div>
+                                    <div className="col-4 font-weight-bold">Created at:</div>
+                                    <div className="col-8">{this.convertDateToString(el.created_at)}</div>
                                 </div>
                             </div>
                         </div>
@@ -95,12 +105,27 @@ class Threads extends React.Component {
         });
     }
 
+    getThreadLIst() {
+        this.server.getRequest(api_url.threads).then(res => {
+            console.log(res);
+            this.setState({
+                threads: this.utility.getValue(res, 'data', [])
+            });
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    componentDidMount() {
+        this.getThreadLIst();
+    }
+
     render() {
         return (
             <div className="Threads">
                 <div>
                     <div className="row w-100 m-0" style={{height:"60px"}}>
-                        <div className="offset-1 col-10">
+                        <div className="offset-2 col-9">
                             <div className="row h-100 w-100 m-0">
                                 <div className="col-5 align-self-end border-bottom">
                                     <h2 className="m-0">All Threads</h2>
@@ -114,7 +139,19 @@ class Threads extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <div className="row m-5">
+                        <div className="offset-1 col-10">
+                            {this.finalSearchResult()}
+                        </div>
+                    </div>
+                </div>
 
+                <div style={{position: 'fixed', width: '100%'}}>
+                    <div style={{display: 'inline-block', position: 'absolute', right: '60px', bottom: '220px'}}>
+                        <Link className="btn btn-primary" to='/threads/new' style={{lineHeight: '7px', borderRadius: '50%', padding: '20px'}}>
+                            +
+                        </Link>
+                    </div>
                 </div>
             </div>
         );

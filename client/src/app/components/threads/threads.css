@@ -2,9 +2,9 @@
     margin: 0;
     padding: 0;
 }
-.search-box {
-  /* padding: 10px; */
-}
+/* .search-box {
+  padding: 10px;
+} */
 .search-box>input {
   margin-bottom: 1px;
   border-radius: 0;
