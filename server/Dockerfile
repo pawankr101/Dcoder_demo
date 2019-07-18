@@ -13,7 +13,7 @@
 # COPY . dockerdir/
 # WORKDIR dockerdir/
 # CMD ["npm", "run", "buildandrun"]
-# RUN cd dockerdir && npm run buildandrun
+# # RUN cd dockerdir && npm run buildandrun
 
 FROM node:latest
 RUN mkdir -p /usr/src/app
