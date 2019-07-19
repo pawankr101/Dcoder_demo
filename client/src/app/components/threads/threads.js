@@ -146,7 +146,7 @@ class Threads extends React.Component {
                     </div>
                 </div>
 
-                <div style={{position: 'fixed', width: '100%'}}>
+                <div style={{position: 'fixed', width: '100%', height: '270px', top: '570px'}}>
                     <div style={{display: 'inline-block', position: 'absolute', right: '60px', bottom: '220px'}}>
                         <Link className="btn btn-primary" to='/threads/new' style={{lineHeight: '7px', borderRadius: '50%', padding: '20px'}}>
                             +

@@ -35,11 +35,13 @@ export class ServerUtilityService {
 					message: "'apiEndUrl' must be string"
 				});
 			}
-			let url = apiEndUrl + this.buildParam(this.utility.getValue(options, 'params'));
+			let url = apiEndUrl + (this.utility.getValue(options, 'params') ? this.buildParam(options.params) : '');
 			let headers = new Headers();
 			headers.append('Content-Type', 'application/json');
 			headers.append('Accept', 'application/json');
-			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
+			if(this.utility.getValue(options, 'headers')) {
+				headers = this.buildHeader(headers, options.headers)
+			}
 			let jwt = this.utility.getFromLocalStorage('jwt_token');
 			headers.append('Authorization', `Bearer ${jwt}`);
 			let status = null;
@@ -71,11 +73,13 @@ export class ServerUtilityService {
 			if(!this.utility.isDefinedAndNotNull(payload)) {
 				payload = {};
 			}
-			let url = apiEndUrl + this.buildParam(this.utility.getValue(options, 'params'))
+			let url = apiEndUrl + (this.utility.getValue(options, 'params') ? this.buildParam(options.params) : '');
 			let headers = new Headers();
 			headers.append('Content-Type', 'application/json');
 			headers.append('Accept', 'application/json');
-			headers = this.buildHeader(headers, this.utility.getValue(options, 'headers'))
+			if(this.utility.getValue(options, 'headers')) {
+				headers = this.buildHeader(headers, options.headers)
+			}
 			let jwt = this.utility.getFromLocalStorage('jwt_token');
 			headers.append('Authorization', `Bearer ${jwt}`);
 			let status = null;
