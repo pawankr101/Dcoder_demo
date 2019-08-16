@@ -1,6 +1,8 @@
 import { readFileSync } from 'fs';
 import { sign, verify } from 'jsonwebtoken'
 import { UtilityService } from '../../../services/utility';
+
+let instance;
 export class UserService {
     token = {
         private: null,
@@ -10,6 +12,10 @@ export class UserService {
     constructor() {
         this.utility = new UtilityService();
         this.getKeys()
+        if(instance) {
+            return instance;
+        }
+        instance = this;
     }
 
     getKeys() {

@@ -1,6 +1,15 @@
+let instance;
 export class UtilityService {
-
+    
     localConst = {};
+
+    constructor() {
+        if(instance) {
+            return instance;
+        }
+        instance = this;
+    }
+
     extractValue(model, keyArr) {
         return keyArr.reduce((pre, cur) => {
             return (pre && this.isDefined(pre[cur])) ? pre[cur] : null;

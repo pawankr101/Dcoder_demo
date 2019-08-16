@@ -12,7 +12,7 @@ export class UserModel {
     }
 
     generateSchema() {
-        this.schema = new Schema({name: String,
+        this.schema = new Schema({
             name: String,
             email: String,
             password: String,

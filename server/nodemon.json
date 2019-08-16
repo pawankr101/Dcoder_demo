@@ -3,7 +3,7 @@
 	"watch": ["src/app/*", "src/config/*", "src/index.js", "src/cluster.js"],
     "ignore": [
     	"node_modules/*",
-    	".babelrc",
+    	"babel.config.js",
     	".jshintrc",
     	"src/assets/*"
     ],
